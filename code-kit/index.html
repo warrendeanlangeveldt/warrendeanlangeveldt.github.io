@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>code-kit</title>
+<meta name="description" content="code-kit keeps AI coding agents inside a project's engineering rules: lanes, layers, protected paths, spec-check before code and proof before done, enforced by Claude Code hooks, plus a lead loop that keeps the build moving.">
+<meta property="og:title" content="code-kit">
+<meta property="og:description" content="Lanes, layers and proof before done, enforced on every tool call. A Claude Code plugin.">
+<meta property="og:image" content="https://warrendeanlangeveldt.github.io/assets/og.png">
+<meta name="theme-color" content="#070d10">
+<link rel="icon" href="../assets/code-kit-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../"><img src="../assets/code-kit-icon.png" alt=""><span>code-kit</span><span class="plus">+</span><img src="../assets/context-graph-icon.png" alt=""><span>Context Graph</span></a>
+    <nav aria-label="Pages"><a href="../#watch">Watch it build</a><a href="./" aria-current="page">code-kit</a><a href="../context-graph/">Context Graph</a></nav>
+    <a class="gh" href="https://github.com/warrendeanlangeveldt/code-kit">GitHub</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="pagehero">
+    <span class="marker"><img src="../assets/code-kit-icon.png" alt=""><span class="eyebrow">code-kit</span></span>
+    <h1 style="font-size:clamp(38px,6vw,72px)">Rules your agents <span class="kit">can't</span> forget.</h1>
+    <p class="lede">You write the rules once, per project, in <code>.claude/code-kit.json</code>. code-kit's hooks enforce them on every tool call, for the main session and every subagent. It also carries the work from idea to merged code: spec the idea, hand stories to lanes, review each branch against its requirements, merge in order.</p>
+    <div class="cmds" id="cmd" style="max-width:640px"><span class="p">› </span>/plugin marketplace add warrendeanlangeveldt/code-kit
+<span class="p">› </span>/plugin install code-kit@code-kit
+<span class="p">› </span>/code-kit:next<button class="copy" type="button" data-copy="#cmd">Copy</button></div>
+  </div>
+
+  <div class="doc">
+    <aside aria-label="On this page">
+      <a href="#enforces">What it enforces</a>
+      <a href="#idea">From an idea</a>
+      <a href="#build">The build</a>
+      <a href="#session">In the session</a>
+      <a href="#approvals">Approvals</a>
+      <a href="#cli">Commands</a>
+      <a href="#when">When to use it</a>
+    </aside>
+    <article>
+      <h2 id="enforces">What it enforces</h2>
+      <ul>
+        <li><strong>Lanes.</strong> Each lane agent writes only its own paths. The lead writes contracts, specs and config, and delegates the rest. Any other subagent is read-only.</li>
+        <li><strong>Layers.</strong> Each layer depends only on the layers it lists, and never on packages it's denied. A write that would add a violation is refused before it reaches disk. In brownfield code, existing violations sit in a baseline that only ever shrinks.</li>
+        <li><strong>Protected paths, on the record.</strong> Every committed change to the kit, registers or contracts is logged in <code>.claude/approval-log.jsonl</code>, in the same commit.</li>
+        <li><strong>Spec-check before code.</strong> A lane can't write code on a branch until its spec-check report exists.</li>
+        <li><strong>Shell rules.</strong> No force-push, no commits to main, no <code>--no-verify</code>, no new dependency without approval, no forged approvals, and your project's own blocked commands.</li>
+        <li><strong>Proof before finishing.</strong> Before any agent finishes: an ownership audit of every uncommitted change, the layer rules, and your project's checks for the files that changed.</li>
+        <li><strong>In CI, too.</strong> <code>code-kit verify</code> runs the same rules on every pull request.</li>
+      </ul>
+      <div class="diagram"><img src="../assets/code-kit-workflow.svg" alt="How code-kit works: the specs create the agents, skills and rules; the lead delegates stories to lane agents and brings decisions and approvals to you; hooks enforce ownership, layers, approvals and spec-check while each lane builds."></div>
+
+      <h2 id="idea">From an idea</h2>
+      <p><code>/code-kit:next a booking app for mobile dog groomers</code> starts with spec-design. It asks the questions that decide the build, a few at a time with a recommended answer, and writes every decision down: the problem and non-goals, two or three shapes of solution, the scope, one spec per area with numbered, testable requirements, then the architecture, principles and a plan of stories split into lanes. Then init turns that into enforced lanes and layers, and asks how hands-off you want the build.</p>
+
+      <h2 id="build">The build</h2>
+      <p>The lead dispatches every ready story to its lane, each in its own worktree on <code>&lt;lane&gt;/st-&lt;n&gt;</code>, in parallel. Lanes spec-check first, build end to end, name requirement IDs in their test titles, and commit. A reviewer agent reads each finished branch in the background and grades its findings. The lead reviews against the requirements; a blocker sends the branch back. Branches that pass join the merge queue and merge one at a time, each verified against main as it is then.</p>
+      <p>Between your prompts, <strong>the loop</strong> keeps it moving: with the lead idle, it hands it the next step. Stalled lanes are nudged, then restarted. A step that doesn't take twice comes to you.</p>
+
+      <h2 id="session">In the session</h2>
+      <p>With Claude Code 2.1.287 or later, code-kit's mod draws the build in front of you, in the terminal and the Desktop app.</p>
+      <ul>
+        <li><strong>The band</strong> above your prompt: the goal, what the lead is doing now, the next step, each agent at work with its current tool, and whatever waits on you, with keys to answer.</li>
+        <li><strong>Lanes</strong>: the loop as a card, each lane with a pixel character, its state, story and live tool call, and a selected lane's stories as cards.</li>
+        <li><strong>Code map</strong>: a story's files by layer with their imports, glowing while a lane reads or edits them.</li>
+        <li><strong>Trail</strong>: every requirement to its stories, code and tests, gaps in red.</li>
+        <li><strong>Queue</strong> and <strong>Usage</strong>: the merge queue in order, and tokens per lane and story.</li>
+      </ul>
+      <div class="term" style="padding:16px;margin-top:18px"><div data-codemap></div></div>
+
+      <h2 id="approvals">Approvals</h2>
+      <p>Some things need a person: a new package, a change to a contract, an edit to the kit. When an agent hits one, its call is held while the band asks you, and runs once you approve. You can approve in chat and the lead records your words, or let the lead approve within delegated rules you set (licence, weekly downloads, age of the package, merges into main). Every approval lands in the log with its reason.</p>
+
+      <h2 id="cli">Commands</h2>
+      <div class="tablebox"><table class="cmdtable">
+        <tr><td>/code-kit:next</td><td>Work out where the project stands and run the next step.</td></tr>
+        <tr><td>/code-kit:spec-design</td><td>An idea into a specification, decision by decision.</td></tr>
+        <tr><td>/code-kit:init docs/</td><td>Draft the rules, agents and skills from the docs or the code.</td></tr>
+        <tr><td>/code-kit:dispatch next</td><td>Start every ready story on its lane.</td></tr>
+        <tr><td>/code-kit:review ST-12</td><td>Check a finished branch; merge it or send it back.</td></tr>
+        <tr><td>/lanes · /harness</td><td>The Lanes pane, and the harness settings.</td></tr>
+        <tr><td>code-kit verify</td><td>Every rule against a branch, in a terminal or CI.</td></tr>
+        <tr><td>code-kit status · trail · map</td><td>The build against the spec; each requirement's trail; a story's code.</td></tr>
+        <tr><td>code-kit queue</td><td>The merge queue; merge its head as the lead or as you.</td></tr>
+      </table></div>
+
+      <h2 id="when">When to use it</h2>
+      <p>When several agents work on one codebase at once, the architecture has layers worth protecting, some files need an audit trail, the project has specs code should follow, and "done" has to mean done. It's overkill for a throwaway script: leave out <code>.claude/code-kit.json</code> and the plugin does nothing.</p>
+      <p><a class="btn" href="https://github.com/warrendeanlangeveldt/code-kit#readme">The full README on GitHub →</a></p>
+    </article>
+  </div>
+</main>
+<footer><div class="wrap"><span>code-kit · MIT licensed · <a href="https://www.npmjs.com/package/@warren-dean/code-kit">@warren-dean/code-kit</a></span><nav aria-label="Elsewhere"><a href="../">Home</a><a href="../context-graph/">Context Graph</a></nav></div></footer>
+<script src="../assets/harness.js"></script>
+</body>
+</html>

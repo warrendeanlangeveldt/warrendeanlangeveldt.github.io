@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>code-kit & Context Graph</title>
+<meta name="description" content="Two Claude Code plugins that make AI agents build like a team: code-kit enforces who may change what and what must be proved; Context Graph gives every agent the why behind a file before it edits.">
+<meta property="og:title" content="code-kit & Context Graph">
+<meta property="og:description" content="Your agents, building like a team that knows why. Two Claude Code plugins for lanes, layers, specs and the why behind every file.">
+<meta property="og:image" content="https://warrendeanlangeveldt.github.io/assets/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#070d10">
+<link rel="icon" href="assets/code-kit-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="assets/code-kit-icon.png" alt=""><span>code-kit</span><span class="plus">+</span><img src="assets/context-graph-icon.png" alt=""><span>Context Graph</span></a>
+    <nav aria-label="Sections">
+      <a href="#watch">Watch it build</a>
+      <a href="#rules">The rules</a>
+      <a href="#why">The why</a>
+      <a href="#case">A real build</a>
+      <a href="code-kit/">code-kit</a>
+      <a href="context-graph/">Context Graph</a>
+    </nav>
+    <a class="gh" href="#install">Install</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <div class="wrap">
+      <span class="eyebrow">Two plugins for Claude Code</span>
+      <h1>Your agents,<span class="line2 grad">building like a team that knows why.</span></h1>
+      <p class="lede">A lead agent hands stories to lanes. <span class="kit">code-kit</span> holds every agent to who may change what, which layers may depend on which, and what has to be proved before it's done. <span class="ctx">Context Graph</span> makes each agent understand a file before it edits it, and leaves the why behind for the next one.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#install">Install both <span class="k">2 commands</span></a>
+        <a class="btn" href="#watch">Watch a build</a>
+      </div>
+      <div class="stage" id="watch">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="tilt"><div data-harness data-caption="#say" data-toggle="#playpause"></div></div>
+        <div class="caption">
+          <span class="live">A dramatised replay of a real build</span>
+          <span class="say" id="say"></span>
+          <button type="button" id="playpause">Pause</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="loop">
+    <div class="wrap split">
+      <div class="sec-head">
+        <span class="eyebrow">The loop</span>
+        <h2>It keeps going between your prompts.</h2>
+        <p class="lede">When the lead goes idle, code-kit asks what's next and hands it the step: dispatch the ready stories, review a finished branch, merge the head of the queue. A reviewer agent reads each branch first. Stalled lanes get nudged, then restarted. You choose how hands-off it is, and the band above your prompt always says the goal, what's happening now, what's next, and what's waiting on you.</p>
+      </div>
+      <div class="term" aria-label="The mission band">
+        <div class="bar"><i></i><i></i><i></i><span>the band above your prompt</span></div>
+        <div class="band" style="border-top:0">
+          <div class="r"><span class="k">goal</span><span class="v">Milestone 5 · the original beside the split · 3 of 6 stories done</span></div>
+          <div class="r"><span class="k">now</span><span class="v">lead reviewing ST-19 · loop on  <span class="btnk">[1 Pause]</span></span></div>
+          <div class="r"><span class="k">next</span><span class="v">Merge web/st-19, then Dispatch ST-23</span></div>
+          <div class="r"><span class="k">agents</span><span class="v ag"><span style="color:var(--ingest)"><span class="dot"></span></span><span>ingest</span><span class="t">Edit src/adapters/parsers/pdf.ts</span><span class="a">2s</span></span></div>
+          <div class="r"><span class="k"></span><span class="v ag"><span style="color:var(--web)"><span class="dot"></span></span><span>web</span><span class="t">Bash npm run test:e2e</span><span class="a">41s</span></span></div>
+          <div class="r"><span class="k">context</span><span class="v ctxl">ingest edited 1 file without understanding it</span></div>
+          <div class="r"><span class="k">you</span><span class="v you">web wants to install pdfjs-dist · 1:42  <span class="btnk">[2 Approve] [3 Refuse]</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rules">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">The rules hold</span>
+        <h2>Advice drifts. <span class="kit">Hooks don't.</span></h2>
+        <p class="lede">Rules in a prompt are suggestions an agent forgets three hours in. These are refusals the plugins actually gave while building the book editor, each one saying why and what to do instead.</p>
+      </div>
+      <div class="refusals">
+        <article class="ref">
+          <div class="tried"><span class="who"><b style="color:var(--web)">web-engineer</b> ran</span><span class="cmd">npm run test:e2e</span><span class="who">…and Next.js quietly rewrote tsconfig.json</span></div>
+          <div class="said"><span class="x">✗ </span>These uncommitted changes break the ownership rules: tsconfig.json: The web-engineer (web lane) may not write tsconfig.json (owned by the lead). <span class="plugin">code-kit</span></div>
+        </article>
+        <article class="ref">
+          <div class="tried"><span class="who"><b style="color:var(--web)">web-engineer</b> wrote a test in</span><span class="cmd">src/ui/download.test.ts</span><span class="who">importing the server</span></div>
+          <div class="said"><span class="x">✗ </span>Blocked: this edit would break the layer rules: src/ui/download.test.ts (ui) imports @/server/http (server); ui may depend on contracts, domain. <span class="plugin">code-kit</span></div>
+        </article>
+        <article class="ref">
+          <div class="tried"><span class="who"><b style="color:var(--lead)">lead</b> ran</span><span class="cmd">npm install next react react-dom zod</span></div>
+          <div class="said"><span class="x">✗ </span>Blocked: a new dependency (next, react, react-dom, zod) needs a person's approval… or the lead approves it itself, if it's within the project's delegated rules. <span class="plugin">code-kit</span></div>
+        </article>
+        <article class="ref">
+          <div class="tried"><span class="who"><b style="color:var(--ingest)">ingest-engineer</b> started writing</span><span class="cmd">tests/fixtures/manuscripts/sample.pdf</span></div>
+          <div class="said"><span class="x">✗ </span>Run the spec-check skill before writing code on this branch. Save its report (the requirement table, questions and recommendation), then continue. <span class="plugin">code-kit</span></div>
+        </article>
+        <article class="ref ctxref">
+          <div class="tried"><span class="who"><b style="color:var(--ingest)">ingest-engineer</b> tried to edit</span><span class="cmd">src/adapters/parsers/epub.ts</span><span class="who">having only grepped it</span></div>
+          <div class="said"><span class="x">✗ </span>file src/adapters/parsers/epub.ts: no card yet: read it in full (no offset or limit) before editing it, and write its card after. <span class="plugin">Context Graph</span></div>
+        </article>
+        <article class="ref">
+          <div class="tried"><span class="who"><b style="color:var(--lead)">lead</b> tried to merge</span><span class="cmd">code-kit queue merge --delegated</span><span class="who">on a brand-new repository</span></div>
+          <div class="said"><span class="x">✗ </span>main has no .claude/code-kit.json committed yet, so it delegates nothing: the first merge, which brings code-kit's rules onto main, is the person's. <span class="plugin">code-kit</span></div>
+        </article>
+      </div>
+      <div class="feats">
+        <div class="feat"><span class="ic kit">▤</span><h3>Lanes</h3><p>Each lane agent writes only its own paths. The lead writes contracts and specs, and delegates the rest.</p></div>
+        <div class="feat"><span class="ic kit">⇵</span><h3>Layers</h3><p>Each layer imports only what it may, checked before the write, so a layer is never broken on disk.</p></div>
+        <div class="feat"><span class="ic kit">✓</span><h3>Proof before done</h3><p>No agent finishes with failing checks, unowned changes or work nobody committed.</p></div>
+        <div class="feat"><span class="ic kit">◆</span><h3>Approvals on the record</h3><p>Contracts, kit changes and new packages are approved by you or within rules you set, and logged in git.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap split">
+      <div class="sec-head">
+        <span class="eyebrow">The why, kept in git</span>
+        <h2>Every file has a card. <span class="ctx">Every rule has a reason.</span></h2>
+        <p class="lede">Context Graph keeps a small graph beside your code: modules, the rules that apply to them, the decisions made and why, and a card for every file. An agent gets the card and the rules at the moment it's about to edit, and leaves a decision behind when it's done. A background writer cards the existing code; a curator proposes the rules your decisions keep making.</p>
+      </div>
+      <div class="cardx" aria-label="An example file card">
+        <span class="lbl">file</span>
+        <span class="path">src/adapters/parsers/pdf.ts</span>
+        <span class="lbl">card</span>
+        <span class="txt">Reads a PDF by page, dropping page numbers and running heads, and keeps each line's box so a paragraph can point back to where it came from in the original.</span>
+        <span class="lbl">rules</span>
+        <span><span class="rule e">E hex.ports-in-core</span><span class="rule">G config.no-secrets-in-tree</span></span>
+        <span class="lbl">decisions</span>
+        <span class="dec"><b>10-10 ingest</b> arabic page numbers are dropped; roman numerals kept as headings → IMP-3</span>
+        <span class="dec"><b>10-10 ingest</b> each line keeps its box for the original panel → ORIG-2</span>
+      </div>
+    </div>
+    <div class="wrap" style="margin-top:56px">
+      <div class="split">
+        <div class="term" style="padding:16px"><div data-graph></div></div>
+        <div class="sec-head" style="margin:0">
+          <h3>See the graph think.</h3>
+          <p class="lede" style="font-size:17px">The Map tab draws your modules with their rules and how many of their files have a card. A decision pulses on as it's recorded. A rule that keeps getting overridden turns red, with the curator's rewording ready to accept.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="map">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Together</span>
+        <h2>Watch the code light up.</h2>
+        <p class="lede">The code map draws a story's files by layer, joined by their imports. A file glows in a lane's colour while that lane reads or edits it, and turns green once it's understood and its why is written down. Select one to read it.</p>
+      </div>
+      <div class="term" style="padding:16px"><div data-codemap></div></div>
+    </div>
+  </section>
+
+  <section id="case">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">A real build</span>
+        <h2>One brief. A working book editor.</h2>
+        <p class="lede">We gave both plugins a one-paragraph idea: an AI line editor that keeps a writer's voice, shows its changes side by side, and lets you cherry-pick them. The lead specced it, split it into lanes and built it, while code-kit and Context Graph held the line.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>24</b><span>stories, across 5 milestones</span></div>
+        <div class="stat"><b>46</b><span>numbered, testable requirements</span></div>
+        <div class="stat"><b>652</b><span>unit tests</span></div>
+        <div class="stat"><b>63</b><span>browser tests, the whole journey</span></div>
+        <div class="stat"><b>6</b><span>lanes: lead, core, data, ai, ingest, web</span></div>
+        <div class="stat"><b>184</b><span>files given their why by the card writer</span></div>
+      </div>
+      <div class="milestones">
+        <div class="ms"><span class="when">Milestone 1</span><div><h3>Foundations</h3><p>The scaffold and the contracts, built by the lead itself. The first merge into main was yours: it brings the rules with it.</p><div class="storyrow"><span>ST-1</span><span>ST-2</span></div></div></div>
+        <div class="ms"><span class="when">Milestone 2</span><div><h3>Import and library</h3><p>Readers for .docx, Markdown, text, EPUB and PDF, run in parallel lanes. Chapter detection, structure edits and the library.</p><div class="storyrow"><span>ST-3</span><span>ST-4</span><span>ST-5</span><span>ST-6</span><span>ST-7</span><span>ST-8</span></div></div></div>
+        <div class="ms"><span class="when">Milestone 3</span><div><h3>Review with AI</h3><p>Claude reads the chapter once, then suggests grammar and flow fixes per paragraph. Word-level diffs, cherry-picking and commits.</p><div class="storyrow"><span>ST-9</span><span>ST-10</span><span>ST-11</span><span>ST-12</span></div></div></div>
+        <div class="ms"><span class="when">Milestone 4</span><div><h3>Export</h3><p>Word and Markdown export, with the writer's italics intact and nothing a manuscript holds turned into formatting by accident.</p><div class="storyrow"><span>ST-13</span><span>ST-14</span><span>ST-15</span></div></div></div>
+        <div class="ms"><span class="when">Milestone 5</span><div><h3>Your own key, and the original beside the split</h3><p>Asked for after the first try: paste your own API key, and see the original page next to the paragraph split, with every paragraph pointing back to where it came from.</p><div class="storyrow"><span>ST-16</span><span>ST-17</span><span>ST-18</span><span>ST-19</span><span>ST-20</span><span>ST-21</span><span>ST-22</span><span>ST-23</span><span>ST-24</span></div></div></div>
+      </div>
+      <div class="split" style="align-items:start;margin-top:30px">
+        <div class="sec-head" style="margin:0">
+          <h3>It found the plugins' own bugs, too.</h3>
+          <p class="lede" style="font-size:17px">Building something real is the best test. Every one of these was fixed, with a test, before the next release.</p>
+        </div>
+        <ul class="caught">
+          <li><b>The first merge was impossible.</b> A new repository had no rules on main to delegate from. Now the first merge is yours, and everything says so.</li>
+          <li><b>The loop asked twenty times.</b> It now stops after two prompts for one step and asks you instead.</li>
+          <li><b>Text was mistaken for commands.</b> An echo that mentioned <code>npm install</code> was refused as a new dependency.</li>
+          <li><b>A helper was blamed for the lead's work.</b> The card writer was flagged for files the lead hadn't committed.</li>
+          <li><b>The card writer wouldn't take no.</b> Declining one batch brought the next ten. Now no means no, for the session.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Install</span>
+        <h2>Two commands each. Then say what you're building.</h2>
+        <p class="lede">You need Claude Code, Node 22 or later, and git. Nothing is enforced until you approve the rules each plugin drafts for your project.</p>
+      </div>
+      <div class="install">
+        <div class="inst">
+          <div class="hd"><img src="assets/code-kit-icon.png" alt=""><h3>code-kit</h3></div>
+          <p>Lanes, layers, protected paths, spec-check before code, proof before done, the loop and the merge queue.</p>
+          <div class="cmds" id="cmd-kit"><span class="p">› </span>/plugin marketplace add warrendeanlangeveldt/code-kit
+<span class="p">› </span>/plugin install code-kit@code-kit
+<span class="p">› </span>/code-kit:next<button class="copy" type="button" data-copy="#cmd-kit">Copy</button></div>
+          <div class="links"><a href="code-kit/">How it works →</a><a href="https://github.com/warrendeanlangeveldt/code-kit">GitHub</a><a href="https://www.npmjs.com/package/@warren-dean/code-kit">npm</a></div>
+        </div>
+        <div class="inst">
+          <div class="hd"><img src="assets/context-graph-icon.png" alt=""><h3>Context Graph</h3></div>
+          <p>File cards, rules and decisions in git; read before edit; the card writer, the curator and <code>/why</code>.</p>
+          <div class="cmds" id="cmd-ctx"><span class="p">› </span>/plugin marketplace add warrendeanlangeveldt/context-graph
+<span class="p">› </span>/plugin install context-graph@context-graph
+<span class="p">› </span>/context-graph:next<button class="copy" type="button" data-copy="#cmd-ctx">Copy</button></div>
+          <div class="links"><a href="context-graph/">How it works →</a><a href="https://github.com/warrendeanlangeveldt/context-graph">GitHub</a><a href="https://www.npmjs.com/package/@warren-dean/context-graph">npm</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Made by Warren Langeveldt. MIT licensed.</span>
+    <nav aria-label="Elsewhere"><a href="https://github.com/warrendeanlangeveldt/code-kit">code-kit on GitHub</a><a href="https://github.com/warrendeanlangeveldt/context-graph">Context Graph on GitHub</a><a href="#top">Back to top</a></nav>
+  </div>
+</footer>
+
+<script src="assets/harness.js"></script>
+</body>
+</html>
