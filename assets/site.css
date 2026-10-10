@@ -261,3 +261,13 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
 .tablebox { overflow-x: auto; }
 .pagehero { padding-block: 70px 10px; display: grid; gap: 20px; }
 .pagehero .marker img { width: 54px; height: 54px; }
+
+/* the maps, drawn by the plugins' own code: a switch between the desktop app's SVG and the terminal's text */
+.surface { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-bottom: 10px; font: 12px var(--mono); color: var(--dim); }
+.surface button { font: inherit; color: var(--fg-2); background: none; border: 1px solid var(--rule-2); border-radius: 5px; padding: 2px 9px; cursor: pointer; }
+.surface button[aria-pressed='true'] { color: var(--fg); border-color: var(--kit-soft); background: color-mix(in srgb, var(--kit) 15%, transparent); }
+.tdraw { margin: 0; font: 11.5px/1.2 var(--mono); color: var(--fg); overflow-x: auto; white-space: pre; background: #0b0f10; border: 1px solid var(--rule); border-radius: 6px; padding: 12px; }
+.mapkeys { display: flex; gap: 8px; margin-top: 8px; }
+.mapkeys button { font: 12px var(--mono); color: var(--fg-2); background: none; border: 1px solid var(--rule-2); border-radius: 5px; padding: 2px 9px; cursor: pointer; }
+.lane .st { white-space: nowrap; }
+.drawnby { font: 12px var(--mono); color: var(--dim); margin-top: 10px; }

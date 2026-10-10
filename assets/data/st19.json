@@ -1,0 +1,199 @@
+{
+ "story": {
+  "id": "ST-19",
+  "title": "Settings: your own key",
+  "lane": "web",
+  "state": "done"
+ },
+ "layers": [
+  "server",
+  "ui",
+  "web",
+  "tests"
+ ],
+ "files": [
+  {
+   "path": "e2e/secrets.spec.ts",
+   "layer": "tests",
+   "lane": "web",
+   "imports": [],
+   "adapters": {
+    "context-graph": {
+     "card": {
+      "state": "current",
+      "text": "E2E on production builds (AI-8, LIB-7, LIB-8, AI-7): one next build (with a random env key) and next start servers with an explicit environment on a snapshot of the e2e database, all outbound HTTP(S) routed (NODE_USE_ENV_PROXY) to a local proxy that records targets and refuses them. Test 1: a session that sees the env key's last4, saves a key through the form (check tried only with api.anthropic.com, refused, so saved unchecked), reviews, then removes it and falls back to the env key; no key in client assets, any page/API reply/script, server output or build output. Test 2: ANTHROPIC_API_KEY empty and no saved key: settings show the no-key message and an unread chapter shows AI-7's message with Retry, with no outbound request. Random made-up keys only."
+     }
+    }
+   }
+  },
+  {
+   "path": "e2e/settings.spec.ts",
+   "layer": "tests",
+   "lane": "web",
+   "imports": [],
+   "adapters": {
+    "context-graph": {
+     "card": {
+      "state": "current",
+      "text": "E2E for Settings (LIB-7, LIB-8) on the dev server with the scripted key check ('rejected' / 'unreachable' markers): model saved immediately; key status with no saved key (environment line or no-key message, from the runner's env); valid key -> 'Key saved.' and 'Using your saved key, ending in \u2026wxyz'; rejected -> message, nothing stored, API 400 without the key; 'hello' -> format message, no request, server refuses malformed too; unreachable -> saved with the couldn't-be-reached message; replace; Remove key with confirmation and fallback; keyboard-only flow; saved key absent from pages, API replies and scripts. Each test starts and ends with no saved key. Made-up keys only."
+     }
+    }
+   }
+  },
+  {
+   "path": "src/app/api/settings/api-key/route.ts",
+   "layer": "web",
+   "lane": "web",
+   "imports": [
+    "src/server/http.ts",
+    "src/server/services.ts"
+   ],
+   "adapters": {
+    "context-graph": {
+     "card": {
+      "state": "current",
+      "text": "PUT /api/settings/api-key (LIB-8): body validated with putApiKeyRequestSchema, a schema failure answered with the format message (never zod's wording, which could echo the key), saveOwnApiKey, reply checked against putApiKeyResponseSchema ({settings with apiKey {source,last4}, outcome verified|unverified}). DELETE: removeOwnApiKey, reply settingsResponseSchema. Errors via http.ts handle: 'That doesn't look like an Anthropic API key.' and 'Anthropic rejected that key.' as 400 invalid. Must keep true: the key is never in a reply or log. Used by src/ui/SettingsForm.tsx."
+     }
+    }
+   }
+  },
+  {
+   "path": "src/app/settings/page.tsx",
+   "layer": "web",
+   "lane": "web",
+   "imports": [
+    "src/server/services.ts",
+    "src/ui/SettingsForm.tsx"
+   ],
+   "adapters": {
+    "context-graph": {
+     "card": {
+      "state": "current",
+      "text": "The settings page (LIB-7, LIB-8): a server component that loads the settings (model, models, apiKeyPresent, apiKey {source,last4}) through loadSettings and hands them to SettingsForm; force-dynamic so the key status is current. Must stay thin: all changes happen in the form through the API; nothing more than the key's last 4 characters reaches the page."
+     }
+    }
+   }
+  },
+  {
+   "path": "src/server/container.test.ts",
+   "layer": "tests",
+   "lane": "web",
+   "imports": [
+    "src/server/container.ts"
+   ],
+   "adapters": {
+    "context-graph": {
+     "card": {
+      "state": "current",
+      "text": "Unit tests for the composition root: key wiring (LIB-7, LIB-8, AI-7) on an in-memory database with only fetch faked (saved key checked then used, removal falls back to ANTHROPIC_API_KEY, no key fails at once, scripted key check sends nothing), and ORIG-3: the dependencies carry the source repository. Made-up key values only."
+     }
+    }
+   }
+  },
+  {
+   "path": "src/server/container.ts",
+   "layer": "server",
+   "lane": "web",
+   "imports": [],
+   "adapters": {
+    "context-graph": {
+     "card": {
+      "state": "current",
+      "text": "Composition root (server only; used by services.ts and container.test.ts, never by src/ui). Holds the process's one database connection and in-flight registry on a globalThis symbol (Next module copies share them). composeDeps(database, inFlight, env, {fetch?}) builds AppDeps: repositories, parsers, clock, environmentApiKey (ANTHROPIC_API_KEY, '' when unset), apiKeyPresent (that value non-blank, matching the key status), keyVerifier (scripted when BOOK_EDITOR_AI=scripted, else Anthropic's free models-list check), and the editor (scripted, or Claude with apiKey: () => resolveApiKey(deps), so every AI call uses the saved key, else the environment key, read at call time; LIB-8, AI-7). getDeps reads process.env here and nowhere else (AI-8). Must keep true: the key goes only to the Claude editor and the key check; never logged or returned."
+     }
+    }
+   }
+  },
+  {
+   "path": "src/server/http.test.ts",
+   "layer": "tests",
+   "lane": "web",
+   "imports": [
+    "src/server/http.ts"
+   ],
+   "adapters": {
+    "context-graph": {
+     "card": {
+      "state": "current",
+      "text": "Unit tests for src/server/http.ts: attachmentDisposition/fileResponse (EXP-1, RFC 6266/8187) and readJson's fixed invalid message (LIB-8: a PUT key body failing the schema is answered 400 with the format message and nothing of the input). Made-up key-shaped values only."
+     }
+    }
+   }
+  },
+  {
+   "path": "src/server/http.ts",
+   "layer": "server",
+   "lane": "web",
+   "imports": [],
+   "adapters": {
+    "context-graph": {
+     "card": {
+      "state": "current",
+      "text": "HTTP helpers for route handlers: parse requests with src/contracts schemas at the edge (parseWith, readJson), answer with contract-shaped JSON (json checks responses outside production), noContent, attachmentDisposition/fileResponse (RFC 6266/8187), errorResponse (AppError -> {error:{code,message}} with the code's status; anything else -> generic 500, only its message logged), routeId, handle. parseWith/readJson take an optional invalidMessage used instead of the schema issue's wording, for input that must never be echoed (the PUT api-key body, LIB-8). Must keep true: stack traces and request bodies never leave the server or reach a log."
+     }
+    }
+   }
+  },
+  {
+   "path": "src/server/services.ts",
+   "layer": "server",
+   "lane": "web",
+   "imports": [
+    "src/server/container.ts",
+    "src/server/views.ts"
+   ],
+   "adapters": {
+    "context-graph": {
+     "card": {
+      "state": "current",
+      "text": "The use cases bound to getDeps() and mapped to contract shapes via views.ts; route handlers and server components call these so a page and its API agree. Includes loadSettings/changeSettings (LIB-7), saveOwnApiKey/removeOwnApiKey (LIB-8) and the re-exported API_KEY_FORMAT_MESSAGE, loadSourceMap (ORIG-3/4, any book status) and loadOriginalFile (ORIG-1/5: bytes, content type, filename, format; not_found when not kept). Must keep: return types match src/contracts/api; nothing returned or logged carries an API key."
+     }
+    }
+   }
+  },
+  {
+   "path": "src/server/views.ts",
+   "layer": "server",
+   "lane": "web",
+   "imports": [],
+   "adapters": {
+    "context-graph": {
+     "card": {
+      "state": "current",
+      "text": "Converts use-case views to the contract's JSON shapes (src/contracts/api.ts); Dates become ISO strings. toBookView, toLibraryResponse, toBookOverviewResponse, toStructureResponse, toSettingsResponse (LIB-7), toPutApiKeyResponse (LIB-8), toReviewParagraph, toReviewChapterResponse, toParagraphResponse, toCommitParagraphResponse, toCommitChapterResponse, toSourceMapResponse (ORIG-3/4: same fields, anchors and dropped regions copied). Used by services.ts. Must keep: field names track the contracts; no response carries more of an API key than last4."
+     }
+    }
+   }
+  },
+  {
+   "path": "src/ui/SettingsForm.tsx",
+   "layer": "ui",
+   "lane": "web",
+   "imports": [
+    "src/ui/api.ts"
+   ],
+   "adapters": {
+    "context-graph": {
+     "card": {
+      "state": "current",
+      "text": "Settings form (LIB-7, LIB-8), client component used by src/app/settings/page.tsx. Model radios saved immediately by PATCH /api/settings. API key: the status line in LIB-7's exact words from settings.apiKey (apiKeyStatusText: saved / environment, with ', ending in \u2026last4' only when last4 is known / the no-key message; falls back to apiKeyPresent while the contract field is optional, ST-24); a password field with Save key that runs the domain's normalizeApiKey/isApiKeyFormat first (format message, nothing sent), then PUT /api/settings/api-key, shows 'Key saved.' or the couldn't-be-reached message from outcome, clears the field, and shows server errors as an alert with aria-invalid and focus back on the field; Remove key (only for a saved key) behind ConfirmDialog, DELETE, then focus to the field. Must keep true: the key is only ever in the field and the one PUT; nothing from the server holds more than last4; keyboard-operable, messages in role=status/alert."
+     }
+    }
+   }
+  },
+  {
+   "path": "src/ui/api.ts",
+   "layer": "ui",
+   "lane": "web",
+   "imports": [],
+   "adapters": {
+    "context-graph": {
+     "card": {
+      "state": "current",
+      "text": "Browser-side HTTP client for the app's own routes. request(method GET|POST|PUT|PATCH|DELETE, url, schema, body?) sends JSON (or FormData) and validates the reply with the contract schema; requestNoContent for 204s; requestFile returns blob and filename from Content-Disposition (RFC 8187). Errors become ApiError with the body's code and spec message, or code 'network'. Used by every UI component that calls the API (settings uses PUT for the key, LIB-8). Must keep true: replies validated before use; error messages preserved; network failures distinguishable."
+     }
+    }
+   }
+  }
+ ]
+}

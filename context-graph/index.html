@@ -19,7 +19,7 @@
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="../"><img src="../assets/code-kit-icon.png" alt=""><span>code-kit</span><span class="plus">+</span><img src="../assets/context-graph-icon.png" alt=""><span>Context Graph</span></a>
-    <nav aria-label="Pages"><a href="../#watch">Watch it build</a><a href="../code-kit/">code-kit</a><a href="./" aria-current="page">Context Graph</a></nav>
+    <nav aria-label="Pages"><a href="../#watch">See it working</a><a href="../code-kit/">code-kit</a><a href="./" aria-current="page">Context Graph</a></nav>
     <a class="gh" href="https://github.com/warrendeanlangeveldt/context-graph">GitHub</a>
   </div>
 </header>
@@ -27,8 +27,8 @@
 <main class="wrap">
   <div class="pagehero">
     <span class="marker"><img src="../assets/context-graph-icon.png" alt=""><span class="eyebrow">Context Graph</span></span>
-    <h1 style="font-size:clamp(38px,6vw,72px)">Understand it <span class="ctx">before</span> you change it.</h1>
-    <p class="lede">An agent works out what good looks like from whatever it happens to read, and forgets it when the session ends. Context Graph keeps the why in git, beside the code: a card for every file, the rules each module follows, and the decisions made on them. It hands the agent the right slice at the moment it edits, and refuses the edit until the file is understood.</p>
+    <h1 style="font-size:clamp(38px,6vw,72px)">Read it <span class="ctx">before</span> you change it.</h1>
+    <p class="lede">An AI agent decides how to change your code based on whatever it happened to read in this session, and forgets all of it when the session ends. Context Graph is a plugin for Claude Code and Codex that writes the important parts down, in your repository: a short card for each file, the rules each part of the project follows, and why past decisions were made. It gives the agent the right ones just before it edits a file, and stops the edit if the agent hasn't read the file properly.</p>
     <div class="cmds" id="cmd" style="max-width:680px"><span class="p">› </span>/plugin marketplace add warrendeanlangeveldt/context-graph
 <span class="p">› </span>/plugin install context-graph@context-graph
 <span class="p">› </span>/context-graph:next<button class="copy" type="button" data-copy="#cmd">Copy</button></div>
@@ -36,60 +36,57 @@
 
   <div class="doc">
     <aside aria-label="On this page">
-      <a href="#loop">The context loop</a>
-      <a href="#graph">The graph</a>
-      <a href="#harness">In the session</a>
+      <a href="#loop">Every edit</a>
+      <a href="#graph">What it keeps</a>
+      <a href="#harness">What you see</a>
       <a href="#together">With code-kit</a>
       <a href="#cli">Commands</a>
       <a href="#when">When to use it</a>
     </aside>
     <article>
-      <h2 id="loop">The context loop</h2>
-      <p>For every edit of a file:</p>
+      <h2 id="loop">What happens on every edit</h2>
       <ol>
-        <li><strong>Is the file understood?</strong> Its card is fresh, or the agent read it in full this session along with what it imports. If the edit changes what the file exports, its importers too. If not, the edit is refused, naming each file to read and why.</li>
-        <li><strong>The edit,</strong> with the slice: the file's card, the rules that apply, and the decisions made on it and on what it imports.</li>
-        <li><strong>The card is owed:</strong> what the file is for, what it relies on, who relies on it, what it must keep true. A decision is recorded for each constrained file before the turn ends.</li>
+        <li><strong>Has the agent understood the file?</strong> Either the file's card is up to date, or the agent read the whole file this session, along with the files it depends on. If the change affects code that uses this file, the agent must have looked at that too. If not, the edit is refused, with a list of what to read and why.</li>
+        <li><strong>The edit,</strong> with the file's card, the rules that apply to it, and past decisions on it and on the files it depends on.</li>
+        <li><strong>A note afterwards.</strong> The agent updates the file's card, and records a short decision for any file that follows a rule: what changed and why.</li>
       </ol>
-      <div class="diagram"><img src="../assets/context-graph-loop.svg" alt="How Context Graph works: context kept in git is delivered to the agent; before an edit the file needs a fresh card or a full read; after the edit the card and a decision are written."></div>
+      <div class="diagram"><img src="../assets/context-graph-loop.svg" alt="How Context Graph works: the notes kept in git are given to the agent; before an edit the file must be understood; after the edit the card and a decision are written."></div>
 
-      <h2 id="graph">The graph</h2>
-      <p>A small graph in <code>.ctx/</code>, committed with the code: <strong>modules</strong> mapped onto your paths, <strong>concepts</strong>, <strong>rules</strong> (agreed, guidance or proposed), <strong>decisions</strong> with who made them and why, and <strong>cards</strong> with each file's content hash, so a card is fresh only while the file is unchanged. <code>/context-graph:init</code> proposes the graph from your tree, tests, instruction files and ADRs, and nothing is enforced until you agree it. A person ratifies rules with a commit trailer agents may not write.</p>
+      <h2 id="graph">What it keeps</h2>
+      <p>A small set of files in a <code>.ctx/</code> folder, committed with your code, so the whole team and every agent sees the same thing: the <strong>parts</strong> of your project and which folders belong to each, the <strong>rules</strong> each part follows, the <strong>decisions</strong> made with who made them and why, and a <strong>card</strong> per file. A card is marked out of date as soon as its file changes. To start, <code>/context-graph:init</code> suggests all of this from your folders, tests and docs, and nothing is enforced until you agree. Only a person, or a lead agent you've explicitly allowed for some kinds of rule, can make a suggested rule official.</p>
       <div class="term" style="padding:16px;margin-top:18px"><div data-graph></div></div>
 
-      <h2 id="harness">In the session</h2>
+      <h2 id="harness">What you see</h2>
       <ul>
-        <li><strong>The Context pane</strong> follows the file an agent is on: its card as Markdown, its rules as chips, its decisions and its neighbourhood. <code>/graph &lt;path&gt;</code> opens it on any file.</li>
-        <li><strong>Proposals in plain words:</strong> Accept, Reject or Later, grouped by module, with the evidence for each.</li>
-        <li><strong>The card writer</strong> writes owed and missing cards in the background, from full reads. With a backfill, it cards a brownfield codebase, leaves first.</li>
-        <li><strong>The curator</strong> reads the decisions and proposes the rules they keep making, and flags rules overridden again and again.</li>
-        <li><strong><code>/why</code></strong> answers a question beside the conversation, from the graph's records only, citing each one.</li>
-        <li><strong>The Map tab</strong> draws the modules as a graph: rules, coverage, decisions pulsing in.</li>
+        <li><strong>A side panel</strong> that follows the file an agent is working on: its card, its rules, past decisions and the files around it. <code>/graph &lt;file&gt;</code> opens it on any file.</li>
+        <li><strong>Suggested rules,</strong> with the evidence for each, to accept, reject or leave for later.</li>
+        <li><strong>A background writer</strong> that writes missing cards while you work. For an existing codebase, it can card the whole thing, starting with the files everything else depends on.</li>
+        <li><strong>A curator</strong> that reads past decisions and suggests the rules they keep pointing to, and flags rules agents keep working around.</li>
+        <li><strong><code>/why</code></strong> answers a question about the code from these records alone, beside the conversation, citing each record it used.</li>
+        <li><strong>A map</strong> of the project's parts, with their rules and how many files have a card.</li>
       </ul>
 
       <h2 id="together">With code-kit</h2>
-      <p>Each knows the other through an adapter, and neither imports the other's code. With code-kit present, a card names the spec requirement its file delivers and the file's lane and layer, so the layer rule is in front of the agent before it drafts an edit. code-kit lets every agent write cards and decisions, keeps the graph's rules the lead's, and shows each lane's understanding in its own pane. Pausing code-kit's loop pauses the card writer and curator too.</p>
+      <p>The two plugins work on their own and recognise each other when both are installed. A file's card then also says which requirement it delivers and which agent owns it, so the agent sees those limits before it starts. code-kit shows, for each agent, the files it changed without reading. Pausing code-kit's automatic loop pauses Context Graph's background writer and curator too.</p>
 
       <h2 id="cli">Commands</h2>
       <div class="tablebox"><table class="cmdtable">
-        <tr><td>/context-graph:next</td><td>Look at the repository and take the next step.</td></tr>
-        <tr><td>/context-graph:init</td><td>Propose a graph, set the ratifiers, and offer the backfill.</td></tr>
-        <tr><td>/graph · /why · /graph-settings</td><td>The Context pane, a side question, the harness settings.</td></tr>
-        <tr><td>ctx card &lt;path&gt; --text</td><td>Write or update a file's card.</td></tr>
-        <tr><td>ctx why · ctx history</td><td>A node's decisions and rules, now or over time.</td></tr>
-        <tr><td>ctx hydrate &lt;scope&gt;</td><td>One briefing before work: slices, callers, rules with history.</td></tr>
-        <tr><td>ctx cards --backfill</td><td>What a brownfield backfill would card, leaves first.</td></tr>
-        <tr><td>ctx gate --base origin/main</td><td>In CI: ratification, stale cards, opposed decisions.</td></tr>
-        <tr><td>ctx doctor</td><td>Is it working here, and which link is missing if not.</td></tr>
+        <tr><td>/context-graph:next</td><td>Looks at the repository and does the next step.</td></tr>
+        <tr><td>/context-graph:init</td><td>Suggests the parts, rules and cards, and who may approve rules.</td></tr>
+        <tr><td>/graph · /why</td><td>Opens the side panel; asks a question about the code.</td></tr>
+        <tr><td>ctx card &lt;file&gt; --text "…"</td><td>Writes or updates a file's card.</td></tr>
+        <tr><td>ctx why &lt;file&gt;</td><td>The decisions and rules on a file.</td></tr>
+        <tr><td>ctx gate --base origin/main</td><td>On a pull request: out-of-date cards, unapproved rules, conflicting decisions.</td></tr>
+        <tr><td>ctx doctor</td><td>Checks the plugin is working, and says what's missing if not.</td></tr>
       </table></div>
 
       <h2 id="when">When to use it</h2>
-      <p>When the codebase has rules the code doesn't state, decisions get lost, several agents or sessions work on the same code, or you want evidence of how an agent worked. It costs something: enforced reading and cards took about 2.5 times the time and tokens in the benchmark. For a throwaway script, leave it observe-only or don't give the repository a graph.</p>
-      <p><a class="btn" href="https://github.com/warrendeanlangeveldt/context-graph#readme">The full README on GitHub →</a></p>
+      <p>When your code follows rules it doesn't state anywhere, when "why is it like this?" only has an answer in someone's head, when several agents or sessions work on the same code, or when you want to see how carefully an agent worked. It costs something: reading first and writing cards took about two and a half times the time and tokens in our benchmark. For a quick script, leave it switched off.</p>
+      <p><a class="btn" href="https://github.com/warrendeanlangeveldt/context-graph#readme">Full documentation on GitHub →</a></p>
     </article>
   </div>
 </main>
 <footer><div class="wrap"><span>Context Graph · MIT licensed · <a href="https://www.npmjs.com/package/@warren-dean/context-graph">@warren-dean/context-graph</a></span><nav aria-label="Elsewhere"><a href="../">Home</a><a href="../code-kit/">code-kit</a></nav></div></footer>
-<script src="../assets/harness.js"></script>
+<script type="module" src="../assets/harness.js"></script>
 </body>
 </html>

@@ -1,0 +1,1303 @@
+[
+ {
+  "id": "L:repo",
+  "name": "book-editor repository",
+  "depth": 0,
+  "parents": [],
+  "rules": {
+   "agreed": 1,
+   "proposed": 0
+  },
+  "ruleList": [
+   {
+    "id": "config.no-secrets-in-tree",
+    "text": "no secret, token, key, or password is committed; a placeholder plus a resolver name is the only thing in the tree",
+    "mode": "G"
+   }
+  ],
+  "imports": [],
+  "decisions": [
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10"
+  ],
+  "files": [
+   {
+    "path": "scripts/fixtures.ts",
+    "card": "current"
+   },
+   {
+    "path": "scripts/fixtures/sample.ts",
+    "card": "current"
+   },
+   {
+    "path": "scripts/migrate.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/api-key.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/commit-chapter.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/commit-paragraph.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/editing-helpers.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/export-book.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/generate-suggestion.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/get-review-chapter.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/helpers.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/import-book.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/in-flight.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/library.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/original.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/read-chapter.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/reask.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/recording-editor.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/start-editing.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/application/structure.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/fixtures/export-books.ts",
+    "card": "current"
+   },
+   {
+    "path": "tests/fixtures/manuscripts.ts",
+    "card": "current"
+   }
+  ]
+ },
+ {
+  "id": "L:e2e",
+  "name": "e2e (8 source files)",
+  "depth": 1,
+  "parents": [
+   "L:repo"
+  ],
+  "rules": {
+   "agreed": 0,
+   "proposed": 0
+  },
+  "ruleList": [],
+  "imports": [],
+  "decisions": [
+   "2026-10-10",
+   "2026-10-10"
+  ],
+  "files": [
+   {
+    "path": "e2e/export.spec.ts",
+    "card": "current"
+   },
+   {
+    "path": "e2e/helpers.ts",
+    "card": "current"
+   },
+   {
+    "path": "e2e/import.spec.ts",
+    "card": "current"
+   },
+   {
+    "path": "e2e/library.spec.ts",
+    "card": "current"
+   },
+   {
+    "path": "e2e/review.spec.ts",
+    "card": "current"
+   },
+   {
+    "path": "e2e/secrets.spec.ts",
+    "card": "current"
+   },
+   {
+    "path": "e2e/settings.spec.ts",
+    "card": "current"
+   },
+   {
+    "path": "e2e/structure.spec.ts",
+    "card": "current"
+   }
+  ]
+ },
+ {
+  "id": "L:src",
+  "name": "src (153 source files)",
+  "depth": 1,
+  "parents": [
+   "L:repo"
+  ],
+  "rules": {
+   "agreed": 0,
+   "proposed": 0
+  },
+  "ruleList": [],
+  "imports": [],
+  "decisions": [
+   "2026-10-10"
+  ],
+  "files": [
+   {
+    "path": "src/contracts/api.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/contracts/api.ts",
+    "card": "current"
+   }
+  ]
+ },
+ {
+  "id": "L:adapters",
+  "name": "adapters (48 source files)",
+  "depth": 2,
+  "parents": [
+   "L:src"
+  ],
+  "rules": {
+   "agreed": 1,
+   "proposed": 0
+  },
+  "ruleList": [
+   {
+    "id": "hex.ports-in-application",
+    "text": "adapters implement the interfaces declared in L:ports (src/application/ports), never the reverse; a port changes only as a lead contract",
+    "mode": "G"
+   }
+  ],
+  "imports": [],
+  "decisions": [],
+  "files": []
+ },
+ {
+  "id": "L:ai",
+  "name": "ai (8 source files)",
+  "depth": 3,
+  "parents": [
+   "L:adapters"
+  ],
+  "rules": {
+   "agreed": 0,
+   "proposed": 0
+  },
+  "ruleList": [],
+  "imports": [
+   {
+    "to": "L:repo",
+    "n": 2
+   }
+  ],
+  "decisions": [
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10"
+  ],
+  "files": [
+   {
+    "path": "src/adapters/ai/claude-editor.live.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/ai/claude-editor.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/ai/claude-editor.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/ai/index.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/ai/key-verifier.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/ai/key-verifier.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/ai/prompt.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/ai/rules.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/ai/scripted-key-verifier.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/ai/scripted-key-verifier.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/ai/scripted.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/ai/scripted.ts",
+    "card": "current"
+   }
+  ]
+ },
+ {
+  "id": "L:db",
+  "name": "db (14 source files)",
+  "depth": 3,
+  "parents": [
+   "L:adapters"
+  ],
+  "rules": {
+   "agreed": 0,
+   "proposed": 0
+  },
+  "ruleList": [],
+  "imports": [],
+  "decisions": [
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10"
+  ],
+  "files": [
+   {
+    "path": "src/adapters/db/book-repository.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/book-repository.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/database.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/database.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/index.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/mappers.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/schema.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/settings-repository.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/settings-repository.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/source-repository.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/source-repository.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/suggestion-repository.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/suggestion-repository.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/test-database.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/usage-repository.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/db/usage-repository.ts",
+    "card": "current"
+   }
+  ]
+ },
+ {
+  "id": "L:exporters",
+  "name": "exporters (6 source files)",
+  "depth": 3,
+  "parents": [
+   "L:adapters"
+  ],
+  "rules": {
+   "agreed": 0,
+   "proposed": 0
+  },
+  "ruleList": [],
+  "imports": [
+   {
+    "to": "L:parsers",
+    "n": 2
+   },
+   {
+    "to": "L:repo",
+    "n": 2
+   }
+  ],
+  "decisions": [],
+  "files": [
+   {
+    "path": "src/adapters/exporters/docx.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/exporters/docx.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/exporters/index.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/exporters/index.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/exporters/markdown.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/exporters/markdown.ts",
+    "card": "current"
+   }
+  ]
+ },
+ {
+  "id": "L:parsers",
+  "name": "parsers (20 source files)",
+  "depth": 3,
+  "parents": [
+   "L:adapters"
+  ],
+  "rules": {
+   "agreed": 0,
+   "proposed": 0
+  },
+  "ruleList": [],
+  "imports": [
+   {
+    "to": "L:repo",
+    "n": 7
+   }
+  ],
+  "decisions": [
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10"
+  ],
+  "files": [
+   {
+    "path": "src/adapters/parsers/docx-body.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/docx.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/docx.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/dropped.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/epub.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/epub.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/errors.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/index.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/index.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/markdown-front-matter.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/markdown-inline.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/markdown.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/markdown.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/marked.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/marked.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/original.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/pdf-layout.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/pdf-layout.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/pdf.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/pdf.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/text-source.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/text.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/adapters/parsers/text.ts",
+    "card": "current"
+   }
+  ]
+ },
+ {
+  "id": "L:app",
+  "name": "app (20 source files)",
+  "depth": 2,
+  "parents": [
+   "L:src"
+  ],
+  "rules": {
+   "agreed": 3,
+   "proposed": 0
+  },
+  "ruleList": [
+   {
+    "id": "fw.server-no-client.app",
+    "text": "server code never imports client-only modules; a browser API has no place in a route or a loader",
+    "mode": "G"
+   },
+   {
+    "id": "hex.app-thin.app",
+    "text": "application code orchestrates; business rules live in L:domain",
+    "mode": "G"
+   },
+   {
+    "id": "hex.dto-boundary.app",
+    "text": "data crossing the L:app boundary is a plain transfer shape, not a domain entity",
+    "mode": "G"
+   }
+  ],
+  "imports": [],
+  "decisions": [
+   "2026-10-10"
+  ],
+  "files": [
+   {
+    "path": "src/app/books/[id]/chapters/[chapterId]/page.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/app/books/[id]/page.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/app/books/[id]/structure/page.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/app/globals.css",
+    "card": "current"
+   },
+   {
+    "path": "src/app/layout.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/app/page.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/app/settings/page.tsx",
+    "card": "current"
+   }
+  ]
+ },
+ {
+  "id": "L:api",
+  "name": "api (14 source files)",
+  "depth": 3,
+  "parents": [
+   "L:app"
+  ],
+  "rules": {
+   "agreed": 1,
+   "proposed": 0
+  },
+  "ruleList": [
+   {
+    "id": "fw.server-no-client.api",
+    "text": "server code never imports client-only modules; a browser API has no place in a route or a loader",
+    "mode": "G"
+   }
+  ],
+  "imports": [],
+  "decisions": [
+   "2026-10-10"
+  ],
+  "files": [
+   {
+    "path": "src/app/api/chapters/[id]/commit/route.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/app/api/chapters/[id]/read/route.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/app/api/chapters/[id]/reopen/route.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/app/api/chapters/[id]/route.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/app/api/paragraphs/[id]/commit/route.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/app/api/paragraphs/[id]/generate/route.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/app/api/paragraphs/[id]/reask/route.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/app/api/paragraphs/[id]/reopen/route.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/app/api/settings/api-key/route.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/app/api/settings/route.ts",
+    "card": "current"
+   }
+  ]
+ },
+ {
+  "id": "L:books",
+  "name": "books (5 source files)",
+  "depth": 4,
+  "parents": [
+   "L:api"
+  ],
+  "rules": {
+   "agreed": 0,
+   "proposed": 0
+  },
+  "ruleList": [],
+  "imports": [],
+  "decisions": [],
+  "files": [
+   {
+    "path": "src/app/api/books/[id]/export/route.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/app/api/books/[id]/route.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/app/api/books/[id]/start/route.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/app/api/books/[id]/structure/route.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/app/api/books/route.ts",
+    "card": "current"
+   }
+  ]
+ },
+ {
+  "id": "L:application",
+  "name": "application (34 source files)",
+  "depth": 2,
+  "parents": [
+   "L:src"
+  ],
+  "rules": {
+   "agreed": 1,
+   "proposed": 0
+  },
+  "ruleList": [
+   {
+    "id": "hex.app-thin.application",
+    "text": "application code orchestrates; business rules live in L:domain",
+    "mode": "G"
+   }
+  ],
+  "imports": [
+   {
+    "to": "L:ports",
+    "n": 14
+   }
+  ],
+  "decisions": [
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10"
+  ],
+  "files": [
+   {
+    "path": "src/application/ai-requests.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/api-key.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/apply-structure-operation.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/commit-chapter.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/commit-paragraph.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/delete-book.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/deps.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/export-book.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/generate-suggestion.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/get-book-overview.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/get-library.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/get-original-file.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/get-review-chapter.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/get-settings.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/get-source-map.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/get-structure.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/import-book.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/in-flight.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/index.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/lookups.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/model-setting.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/paragraph-generation.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/read-chapter.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/reask.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/remove-api-key.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/rename-chapter.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/reopen-chapter.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/reopen-paragraph.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/review-views.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/save-api-key.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/set-model.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/start-editing.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/update-book.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/views.ts",
+    "card": "current"
+   }
+  ]
+ },
+ {
+  "id": "L:ports",
+  "name": "ports (5 source files)",
+  "depth": 3,
+  "parents": [
+   "L:application"
+  ],
+  "rules": {
+   "agreed": 0,
+   "proposed": 0
+  },
+  "ruleList": [],
+  "imports": [],
+  "decisions": [
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10"
+  ],
+  "files": [
+   {
+    "path": "src/application/ports/api-key-verifier.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/ports/clock.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/ports/editor-model.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/ports/index.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/ports/manuscripts.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/application/ports/repositories.ts",
+    "card": "current"
+   }
+  ]
+ },
+ {
+  "id": "L:domain",
+  "name": "domain (19 source files)",
+  "depth": 2,
+  "parents": [
+   "L:src"
+  ],
+  "rules": {
+   "agreed": 3,
+   "proposed": 0
+  },
+  "ruleList": [
+   {
+    "id": "hex.domain-pure",
+    "text": "L:domain never imports L:adapters or a framework",
+    "mode": "G"
+   },
+   {
+    "id": "hex.domain-no-app.domain.app",
+    "text": "L:domain never imports L:app; use cases depend on the domain, not the reverse",
+    "mode": "G"
+   },
+   {
+    "id": "hex.domain-no-app.domain.application",
+    "text": "L:domain never imports L:app; use cases depend on the domain, not the reverse",
+    "mode": "G"
+   }
+  ],
+  "imports": [],
+  "decisions": [
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10"
+  ],
+  "files": [
+   {
+    "path": "src/domain/api-key.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/api-key.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/chapter-detection.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/chapter-detection.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/diff.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/diff.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/export-filename.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/export-filename.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/export-text.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/export-text.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/format-detection.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/format-detection.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/lifecycle.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/lifecycle.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/marked-text.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/marked-text.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/model.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/scene-break.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/scene-break.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/structure.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/domain/structure.ts",
+    "card": "current"
+   }
+  ]
+ },
+ {
+  "id": "L:server",
+  "name": "server (7 source files)",
+  "depth": 2,
+  "parents": [
+   "L:src"
+  ],
+  "rules": {
+   "agreed": 1,
+   "proposed": 0
+  },
+  "ruleList": [
+   {
+    "id": "fw.server-no-client.server",
+    "text": "server code never imports client-only modules; a browser API has no place in a route or a loader",
+    "mode": "G"
+   }
+  ],
+  "imports": [],
+  "decisions": [
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10"
+  ],
+  "files": [
+   {
+    "path": "src/server/container.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/server/container.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/server/http.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/server/http.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/server/pages.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/server/services.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/server/upload.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/server/views.ts",
+    "card": "current"
+   }
+  ]
+ },
+ {
+  "id": "L:ui",
+  "name": "ui (23 source files)",
+  "depth": 2,
+  "parents": [
+   "L:src"
+  ],
+  "rules": {
+   "agreed": 1,
+   "proposed": 0
+  },
+  "ruleList": [
+   {
+    "id": "fw.client-no-secrets",
+    "text": "client code never reads secrets or server-only configuration",
+    "mode": "G"
+   }
+  ],
+  "imports": [],
+  "decisions": [
+   "2026-10-10",
+   "2026-10-10",
+   "2026-10-10"
+  ],
+  "files": [
+   {
+    "path": "src/ui/BookNotFound.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/BookOverview.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/ChangeComparison.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/ChapterNotFound.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/ConfirmDialog.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/ExportActions.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/LibraryList.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/MarkedText.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/ParagraphNavigator.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/ReaskForm.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/ReviewScreen.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/SettingsForm.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/SiteNav.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/StandingInstructions.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/StructureEditor.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/TitleEditor.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/UploadForm.tsx",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/api.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/api.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/format.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/generations.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/review-text.test.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/review-text.ts",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/review.module.css",
+    "card": "current"
+   },
+   {
+    "path": "src/ui/ui.module.css",
+    "card": "current"
+   }
+  ]
+ }
+]
