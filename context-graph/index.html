@@ -53,15 +53,15 @@
       <div class="diagram"><img src="../assets/context-graph-loop.svg" alt="How Context Graph works: the notes kept in git are given to the agent; before an edit the file must be understood; after the edit the card and a decision are written."></div>
 
       <h2 id="graph">What it keeps</h2>
-      <p>A small set of files in a <code>.ctx/</code> folder, committed with your code, so the whole team and every agent sees the same thing: the <strong>parts</strong> of your project and which folders belong to each, the <strong>rules</strong> each part follows, the <strong>decisions</strong> made with who made them and why, and a <strong>card</strong> per file. A card is marked out of date as soon as its file changes. To start, <code>/context-graph:init</code> suggests all of this from your folders, tests and docs, and nothing is enforced until you agree. Only a person, or a lead agent you've explicitly allowed for some kinds of rule, can make a suggested rule official.</p>
+      <p>A small set of files in a <code>.ctx/</code> folder, committed with your code, so the whole team and every agent sees the same thing: the <strong>parts</strong> of your project and which folders belong to each, the <strong>rules</strong> each part follows, the <strong>decisions</strong> made with who made them and why, and a <strong>card</strong> per file. A card is marked out of date as soon as its file changes. To start, <code>/context-graph:init</code> builds all of this from your folders, tests and docs, without asking you anything, and from then on it runs in the background. When an agent spots a convention the code follows, it adds it as guidance that every agent sees from then on. Only a rule that would block edits needs a person to sign it off.</p>
       <div class="term" style="padding:16px;margin-top:18px"><div data-graph></div></div>
 
       <h2 id="harness">What you see</h2>
       <ul>
         <li><strong>A side panel</strong> that follows the file an agent is working on: its card, its rules, past decisions and the files around it. <code>/graph &lt;file&gt;</code> opens it on any file.</li>
-        <li><strong>Suggested rules,</strong> with the evidence for each, to accept, reject or leave for later.</li>
-        <li><strong>A background writer</strong> that writes missing cards while you work. For an existing codebase, it can card the whole thing, starting with the files everything else depends on.</li>
-        <li><strong>A curator</strong> that reads past decisions and suggests the rules they keep pointing to, and flags rules agents keep working around.</li>
+        <li><strong>Suggestions,</strong> with the evidence for each, waiting quietly for whenever you want to look. Nothing above your prompt asks you about them.</li>
+        <li><strong>A background writer</strong> that writes missing cards while you work. In an existing codebase it starts on its own, with the code changed in the last three months, beginning with the files everything else depends on.</li>
+        <li><strong>A curator</strong> (off unless you turn it on) that reads past decisions and adds the rules they keep pointing to as guidance, and flags rules agents keep working around.</li>
         <li><strong><code>/why</code></strong> answers a question about the code from these records alone, beside the conversation, citing each record it used.</li>
         <li><strong>A map</strong> of the project's parts, with their rules and how many files have a card.</li>
       </ul>
@@ -72,7 +72,7 @@
       <h2 id="cli">Commands</h2>
       <div class="tablebox"><table class="cmdtable">
         <tr><td>/context-graph:next</td><td>Looks at the repository and does the next step.</td></tr>
-        <tr><td>/context-graph:init</td><td>Suggests the parts, rules and cards, and who may approve rules.</td></tr>
+        <tr><td>/context-graph:init</td><td>Switches it on: builds the graph and starts it in the background, with no questions.</td></tr>
         <tr><td>/graph · /why</td><td>Opens the side panel; asks a question about the code.</td></tr>
         <tr><td>ctx card &lt;file&gt; --text "…"</td><td>Writes or updates a file's card.</td></tr>
         <tr><td>ctx why &lt;file&gt;</td><td>The decisions and rules on a file.</td></tr>
